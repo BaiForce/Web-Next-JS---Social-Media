@@ -6,7 +6,7 @@ const MobileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div>
+    <div className="md:hidden">
       <div
         className="flex flex-col gap-1 cursor-pointer"
         onClick={() => setIsOpen((prev) => !prev)}
