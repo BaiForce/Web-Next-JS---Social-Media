@@ -1,6 +1,14 @@
 import MobileMenu from "./MobileMenu";
 import Link from "next/link";
 import Image from "next/image";
+import {
+  ClerkLoaded,
+  ClerkLoading,
+  SignedIn,
+  SignedOut,
+  SignIn,
+  UserButton,
+} from "@clerk/nextjs";
 
 const Navbar = () => {
   return (
@@ -49,6 +57,29 @@ const Navbar = () => {
       </div>
       {/* RIGHT  */}
       <div className="w-[30%] flex items-center gap-4 xl:gap-8 justify-end">
+        <ClerkLoading>
+          <div className='class="inline-block h-8 w-8 animate-[spinner-grow_0.75s_linear_infinite] rounded-full bg-current align-[-0.125em] text-surface opacity-0 motion-reduce:animate-[spinner-grow_1.5s_linear_infinite] dark:text-white"'></div>
+        </ClerkLoading>
+        <ClerkLoaded>
+          <SignedIn>
+            <div className="cursor-pointer">
+              <Image src="/people.png" alt="" width={20} height={20} />
+            </div>
+            <div className="cursor-pointer">
+              <Image src="/messages.png" alt="" width={20} height={20} />
+            </div>
+            <div className="cursor-pointer">
+              <Image src="/notifications.png" alt="" width={20} height={20} />
+            </div>
+            <UserButton />
+          </SignedIn>
+          <SignedOut>
+            <div className="flex items-center gap-2">
+              <Image src="/login.png" alt="login icon" width={20} height={20} />
+              <Link href="/sign-in">Login/Register</Link>
+            </div>
+          </SignedOut>
+        </ClerkLoaded>
         <MobileMenu />
       </div>
     </div>
