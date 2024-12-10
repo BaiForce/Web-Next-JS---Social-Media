@@ -3,7 +3,7 @@ import Ad from "../Ad";
 import Birthdays from "./Birthdays";
 import Friends from "./Friends";
 import UserInfoCard from "./UserInfoCard";
-import Usermediacard from "../Usermediacard";
+import Usermediacard from "./Usermediacard";
 import { Suspense } from "react";
 
 const RightMenu = ({ user }: { user?: User }) => {

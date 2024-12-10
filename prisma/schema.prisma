@@ -37,7 +37,7 @@ model User {
   blocks Block[] @relation("BlocksSent")
   blockedBy Block[] @relation("BlocksRecieved")
   stories Story[]
- }
+}
 
 model Post{
   id Int @id @default(autoincrement())

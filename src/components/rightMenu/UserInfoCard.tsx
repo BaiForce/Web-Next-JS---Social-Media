@@ -5,7 +5,6 @@ import Link from "next/link";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import prisma from "@/lib/client";
 import UserInfoCardInteraction from "./UserInfoCardInteraction";
-
 const UserInfoCard = async ({ user }: { user: User }) => {
   const createdAtDate = new Date(user.createdAt);
 
@@ -19,8 +18,7 @@ const UserInfoCard = async ({ user }: { user: User }) => {
   let isFollowing = false;
   let isFollowingSent = false;
 
-  const authResult = await auth(); // Tunggu hasil auth()
-  const currentUserId = authResult?.userId;
+  const { userId: currentUserId } = await auth();
 
   if (currentUserId) {
     const blockRes = await prisma.block.findFirst({
@@ -29,6 +27,7 @@ const UserInfoCard = async ({ user }: { user: User }) => {
         blockedId: user.id,
       },
     });
+
     blockRes ? (isUserBlocked = true) : (isUserBlocked = false);
     const followRes = await prisma.follower.findFirst({
       where: {
