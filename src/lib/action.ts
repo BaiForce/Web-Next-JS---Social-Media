@@ -2,6 +2,7 @@
 
 import { auth } from "@clerk/nextjs/server";
 import prisma from "./client";
+import { constants } from "buffer";
 
 export const switchFollow = async (userId: string) => {
   const authResult = await auth(); // Tunggu hasil dari auth()
@@ -149,4 +150,12 @@ export const declineFollowRequest = async (userId: string) => {
     console.log(error);
     throw new Error("Something went wrong");
   }
+};
+
+export const updateProfile = async (formData:FormData) => {
+
+const fields = Object.fromEntries(formData)
+
+console.log(fields)
+
 };
