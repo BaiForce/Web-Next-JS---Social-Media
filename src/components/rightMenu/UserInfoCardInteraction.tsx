@@ -4,13 +4,11 @@ import { switchBlock, switchFollow } from "@/lib/action";
 import { useOptimistic, useState } from "react";
 
 const UserInfoCardInteraction = ({
-  currentuserId,
   userId,
   isUserBlocked,
   isFollowing,
   isfollowingSent,
 }: {
-  currentuserId: string | null;
   userId: string;
   isUserBlocked: boolean;
   isFollowing: boolean;

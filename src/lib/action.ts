@@ -75,13 +75,75 @@ export const switchBlock = async (userId: string) => {
           id: exitingBlock.id,
         },
       });
-    }else {
+    } else {
       await prisma.block.create({
         data: {
           blockerId: currentUserId,
           blockedId: userId,
         },
       });
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error("Something went wrong");
+  }
+};
+
+export const acceptFollowRequest = async (userId: string) => {
+  const { userId: currentUserId } = await auth();
+
+  if (!currentUserId) {
+    throw new Error("User is not authenticated!");
+  }
+
+  try {
+    const exitingFollowRequest = await prisma.followRequest.findFirst({
+      where: {
+        senderId: userId,
+        recieverId: currentUserId,
+      },
+    });
+
+    if (exitingFollowRequest) {
+      await prisma.follower.create({
+        data: {
+          followerId: currentUserId,
+          followingId: userId,
+        },
+      }); // Membuat follower baru
+      await prisma.followRequest.delete({
+        where: {
+          id: exitingFollowRequest.id,
+        },
+      }); // Menghapus follow request
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error("Something went wrong");
+  }
+};
+
+export const declineFollowRequest = async (userId: string) => {
+  const { userId: currentUserId } = await auth();
+
+  if (!currentUserId) {
+    throw new Error("User is not authenticated!");
+  }
+
+  try {
+    const exitingFollowRequest = await prisma.followRequest.findFirst({
+      where: {
+        senderId: userId,
+        recieverId: currentUserId,
+      },
+    });
+
+    if (exitingFollowRequest) {
+      await prisma.follower.delete({
+        where: {
+          id: exitingFollowRequest.id,
+        },
+      }); // Membuat follower baru
     }
   } catch (error) {
     console.log(error);
