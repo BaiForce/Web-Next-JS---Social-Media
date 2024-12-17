@@ -105,11 +105,11 @@ model Block{
   @@unique([blockerId, blockedId])
 }
 
-model Story{
-  id Int @id @default(autoincrement())
+model Story {
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  expireAt DateTime
-  user User @relation(fields: [userId],references: [id], onDelete: Cascade)
-  userId String @unique 
-  img String
+  expiresAt DateTime
+  img       String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String   @unique
 }
